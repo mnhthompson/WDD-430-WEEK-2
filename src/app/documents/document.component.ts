@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'cms-documents',
-  templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.css']
+  templateUrl: './document.component.html',
+  styleUrls: ['./document.component.css']
 })
 export class DocumentsComponent implements OnInit {
 

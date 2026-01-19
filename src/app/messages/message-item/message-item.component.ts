@@ -8,7 +8,7 @@ import { Message } from '../messages.model';
   styleUrls: ['./message-item.component.css'],
 })
 export class MessageItemComponent implements OnInit {
-  @Input() message: Message;
+  @Input() message!: Message;
 
   constructor() {}
 
