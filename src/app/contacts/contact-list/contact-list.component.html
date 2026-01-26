@@ -9,11 +9,11 @@
   </div>
   <div class="row contact-list-container">
     <div class="col-xs-12">
-      <app-contact-item
+      <cms-contact-item
         *ngFor="let contact of contacts"
         [contact]="contact"
         (click)="onSelected(contact)"
-      ></app-contact-item>
+      ></cms-contact-item>
     </div>
   </div>
 </div>
