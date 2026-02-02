@@ -6,7 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { Message } from '../message.model';
+import { Message } from '../messages.model';
 import { MessageService } from '../message.service';
 
 @Component({
