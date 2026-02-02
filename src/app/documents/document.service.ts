@@ -19,6 +19,6 @@ export class DocumentService {
   }
 
   getDocument(id: string): Document {
-    return this.documents.find((d) => d.id === id);
+    return this.documents.find((d) => d.id === id)!;
   }
 }
