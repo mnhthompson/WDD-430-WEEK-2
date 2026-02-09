@@ -5,7 +5,7 @@ import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
 
 @Component({
-  selector: 'app-document-detail',
+  selector: 'cms-document-detail',
   templateUrl: './document-detail.component.html',
   styleUrls: ['./document-detail.component.css'],
 })

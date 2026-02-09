@@ -4,7 +4,7 @@ import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
 
 @Component({
-  selector: 'app-contact-detail',
+  selector: 'cms-contact-detail',
   templateUrl: './contact-detail.component.html',
   styleUrls: ['./contact-detail.component.css'],
 })
