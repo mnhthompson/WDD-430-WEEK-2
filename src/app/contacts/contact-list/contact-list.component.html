@@ -9,10 +9,20 @@
   </div>
   <div class="row contact-list-container">
     <div class="col-xs-12">
-      <cms-contact-item
-        *ngFor="let contact of contacts"
-        [contact]="contact"
-      ></cms-contact-item>
+      <div
+        cdkDropList
+        [cdkDropListData]="contacts"
+        [cdkDropListConnectedTo]="['groupList']"
+        (cdkDropListDropped)="drop($event)"
+        class="cdk-drop-list">
+        <cms-contact-item
+          *ngFor="let contact of contacts"
+          [contact]="contact"
+          cdkDrag
+          [cdkDragData]="contact"
+          class="cdk-drag">
+        </cms-contact-item>
+      </div>
     </div>
   </div>
 </div>

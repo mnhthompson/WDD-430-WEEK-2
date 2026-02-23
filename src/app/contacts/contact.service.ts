@@ -66,4 +66,8 @@ export class ContactService {
     this.contacts[pos] = newContact;
     this.contactListChangedEvent.next(this.contacts.slice());
   }
+
+
+
+
 }
