@@ -16,3 +16,12 @@
 .btn-sm {
   margin: 0.2rem;
 }
+
+.input-search-btn:hover {
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+.input-search-btn:active {
+  background-color: #bebebe;
+}

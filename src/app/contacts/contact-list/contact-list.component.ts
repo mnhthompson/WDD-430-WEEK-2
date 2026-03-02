@@ -12,6 +12,7 @@ import { CdkDragDrop, transferArrayItem, moveItemInArray } from '@angular/cdk/dr
 export class ContactListComponent implements OnInit, OnDestroy {
   contacts: Contact[] = [];
   subscription!: Subscription;
+  term: string = '';
 
   constructor(private contactService: ContactService) {}
 
@@ -30,5 +31,10 @@ export class ContactListComponent implements OnInit, OnDestroy {
 
   drop(event: CdkDragDrop<Contact[]>) {
     moveItemInArray(this.contacts, event.previousIndex, event.currentIndex);
+  }
+     search(value: string) {
+    this.term = value;
+
+
   }
 }
