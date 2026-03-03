@@ -16,14 +16,20 @@ export class ContactListComponent implements OnInit, OnDestroy {
 
   constructor(private contactService: ContactService) {}
 
-  ngOnInit(): void {
-    this.contacts = this.contactService.getContacts();
-    this.subscription = this.contactService.contactListChangedEvent.subscribe(
+  allContacts: Contact[] = [];
+
+ngOnInit(): void {
+  this.allContacts = this.contactService.getContacts();
+  this.contacts = [...this.allContacts];
+
+  this.subscription =
+    this.contactService.contactListChangedEvent.subscribe(
       (contacts: Contact[]) => {
-        this.contacts = contacts;
+        this.allContacts = contacts;
+        this.contacts = [...contacts];
       }
     );
-  }
+}
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -32,9 +38,17 @@ export class ContactListComponent implements OnInit, OnDestroy {
   drop(event: CdkDragDrop<Contact[]>) {
     moveItemInArray(this.contacts, event.previousIndex, event.currentIndex);
   }
-     search(value: string) {
-    this.term = value;
+   search(value: string) {
+  const term = value.toLowerCase().trim();
 
+  if (!term) {
+    this.contacts = [...this.allContacts];
+    return;
+  }
+
+  this.contacts = this.allContacts.filter(contact =>
+    contact.name.toLowerCase().includes(term)
+  );
+}
 
   }
-}
