@@ -15,7 +15,6 @@ export class DocumentService {
 
   constructor(private http: HttpClient) {}
 
-  //#region "CRUD"
   getDocuments() {
     this.http
       .get<{ message: string; documents: Document[] }>(this.documentsUrl)
@@ -32,27 +31,33 @@ export class DocumentService {
       });
   }
 
-  addDocument(newDoc: Document) {
-    if (!newDoc) return;
-    newDoc.id = '';
-    this.http
-      .post<{ message: string; document: Document }>(
-        this.documentsUrl,
-        newDoc,
-        { headers: new HttpHeaders().set('Content-Type', 'application/json') }
-      )
-      .subscribe({
-        next: (res) => {
-          console.log(res.message);
-          this.documents.push(res.document);
-          this.sortAndSend();
-        },
-        error: (err) => {
-          console.error(err.message);
-          console.error(err.error);
-        },
-      });
-  }
+addDocument(newDoc: Document) {
+  if (!newDoc) return;
+
+  const payload = {
+    name: newDoc.name,
+    description: newDoc.description,
+    url: newDoc.url
+  };
+
+  this.http
+    .post<{ message: string; document: Document }>(
+      this.documentsUrl,
+      payload,
+      { headers: new HttpHeaders().set('Content-Type', 'application/json') }
+    )
+    .subscribe({
+      next: (res) => {
+        console.log(res.message);
+        this.documents.push(res.document);
+        this.sortAndSend();
+      },
+      error: (err) => {
+        console.error(err.message);
+        console.error(err.error);
+      },
+    });
+}
 
   updateDocument(original: Document, newDoc: Document) {
     if (!newDoc || !original) return;

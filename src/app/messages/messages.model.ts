@@ -3,8 +3,8 @@ export class Message {
   public id!: string;
 
   constructor(
+    public sender: string,
     public subject: string,
-    public msgText: string,
-    public sender: string
+    public msgText: string
   ) {}
 }

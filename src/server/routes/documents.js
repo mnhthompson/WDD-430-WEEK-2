@@ -18,31 +18,44 @@ router.get("/", (req, res, next) => {
         error: err,
       });
     });
-});
+}); 
 
-router.post("/", (req, res, next) => {
-  const maxDocumentId = sequenceGenerator.nextId("documents");
+router.post("/", async (req, res) => {
+  try {
+    console.log("Incoming document body:", req.body);
 
-  const document = new Document({
-    id: maxDocumentId,
-    name: req.body.name,
-    description: req.body.description,
-    url: req.body.url,
-  });
-  document
-    .save()
-    .then((createdDocument) => {
-      res.status(201).json({
-        message: "Document added successfully.",
-        document: createdDocument,
+    const { name, description, url } = req.body;
+
+    if (!name || !description || !url) {
+      return res.status(400).json({
+        message: "Missing required fields: name, description, or url",
       });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: "There was a problem creating the document.",
-        error: err,
-      });
+    }
+
+
+    const maxDocumentId = await sequenceGenerator.nextId("documents");
+
+    const document = new Document({
+      id: maxDocumentId,
+      name,
+      description,
+      url,
     });
+
+
+    const createdDocument = await document.save();
+
+    res.status(201).json({
+      message: "Document added successfully.",
+      document: createdDocument,
+    });
+  } catch (err) {
+    console.error("Error creating document:", err);
+    res.status(500).json({
+      message: "There was a problem creating the document.",
+      error: err.message || err,
+    });
+  }
 });
 
 router.put("/:id", (req, res, next) => {

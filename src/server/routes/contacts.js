@@ -21,8 +21,8 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
-  const maxContactId = sequenceGenerator.nextId("contacts");
+router.post("/", async (req, res, next) => {
+  const maxContactId = await sequenceGenerator.nextId("contacts");
 
   const contact = new Contact({
     id: maxContactId,

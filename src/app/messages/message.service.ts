@@ -30,28 +30,26 @@ export class MessageService {
       });
   }
 
-  addMessage(newMsg: Message) {
-    if (!newMsg) return;
-    newMsg.id = '';
-    this.http
-      .post<{ message: string; messageObj: Message }>(
-        this.messagesUrl,
-        newMsg,
-        { headers: new HttpHeaders().set('Content-Type', 'application/json') }
-      )
-      .subscribe({
-        next: (res) => {
-          console.log(res.message);
-          this.messages.push(res.messageObj);
-          this.sortAndSend();
-        },
-        error: (err) => {
-          console.error(err.message);
-          console.error(err.error);
-        },
-      });
-  }
+addMessage(newMsg: Message) {
+  if (!newMsg) return;
 
+  this.http
+    .post<{ message: string; messageObj: Message }>(
+      this.messagesUrl,
+      newMsg,
+      { headers: new HttpHeaders().set('Content-Type', 'application/json') }
+    )
+    .subscribe({
+      next: (res) => {
+        console.log(res.message);
+        this.messages.push(res.messageObj);
+        this.sortAndSend();
+      },
+      error: (err) => {
+        console.error('Error adding message:', err.error || err);
+      },
+    });
+}
   getMessage(id: string): Message {
     return this.messages.find((m) => m.id === id)!;
   }

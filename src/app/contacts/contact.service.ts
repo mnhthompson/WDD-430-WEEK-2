@@ -33,7 +33,7 @@ export class ContactService {
 
   addContact(newContact: Contact) {
     if (!newContact) return;
-    newContact.id = '';
+    
     this.http
       .post<{ message: string; contact: Contact }>(
         this.contactsUrl,
